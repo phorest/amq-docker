@@ -40,4 +40,4 @@ sed -i '/<\/persistenceAdapter>/a<plugins><statisticsBrokerPlugin\/><connectionD
 
 env
 cat activemq-run.xml
-/home/activemq/apache-activemq-5.9.0/bin/activemq console -Dactivemq.brokername=$HOSTNAME xbean:file:./activemq-run.xml
+/home/activemq/apache-activemq-5.14.0/bin/activemq console -Dactivemq.brokername=$HOSTNAME xbean:file:./activemq-run.xml
