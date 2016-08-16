@@ -28,26 +28,27 @@ WORKDIR /home/activemq
 
 USER activemq
 
-RUN curl  --output apache-mq.zip http://central.maven.org/maven2/org/apache/activemq/apache-activemq/5.9.0/apache-activemq-5.9.0-bin.zip
+ENV ACTIVE_MQ_VERSION 5.14.0
+RUN curl  --output apache-mq.zip http://central.maven.org/maven2/org/apache/activemq/apache-activemq/$ACTIVE_MQ_VERSION/apache-activemq-$ACTIVE_MQ_VERSION-bin.zip
 RUN unzip apache-mq.zip
 RUN rm apache-mq.zip
-RUN chown -R activemq:activemq apache-activemq-5.9.0
+RUN chown -R activemq:activemq apache-activemq-$ACTIVE_MQ_VERSION
 
-WORKDIR /home/activemq/apache-activemq-5.9.0/conf
+WORKDIR /home/activemq/apache-activemq-$ACTIVE_MQ_VERSION/conf
 
-WORKDIR /home/activemq/apache-activemq-5.9.0/bin
+WORKDIR /home/activemq/apache-activemq-$ACTIVE_MQ_VERSION/bin
 RUN chmod u+x ./activemq
 
-WORKDIR /home/activemq/apache-activemq-5.9.0/
+WORKDIR /home/activemq/apache-activemq-$ACTIVE_MQ_VERSION/
 
 # ensure we have a log file to tail
 RUN mkdir -p data/
 RUN echo >> data/activemq.log
 EXPOSE 22 1099 61616 8161 5672 61613 1883 61614
 
-WORKDIR /home/activemq/apache-activemq-5.9.0/conf
+WORKDIR /home/activemq/apache-activemq-$ACTIVE_MQ_VERSION/conf
 RUN rm -f startup.sh
 RUN curl   --output startup.sh  https://raw.githubusercontent.com/phorest/amq-docker/master/activemq-cluster-config.sh 
 
 RUN chmod u+x ./startup.sh
-CMD  /home/activemq/apache-activemq-5.9.0/conf/startup.sh
+CMD  /home/activemq/apache-activemq-$ACTIVE_MQ_VERSION/conf/startup.sh
