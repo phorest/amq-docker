@@ -1,4 +1,4 @@
-FROM FROM  anapsix/alpine-java:8_server-jre
+FROM  anapsix/alpine-java:8_server-jre
 MAINTAINER “Dan Walsh” <dwalsh@redhat.com>
 ENV container docker
 RUN yum -y update && \
