@@ -1,4 +1,22 @@
-FROM  anapsix/alpine-java:8_server-jre
+RUN yum -y update && \
+    yum install -y wget tar && \
+    yum -y autoremove && \
+    yum clean all
+
+# Install Oracle Java
+ENV JAVA_MAJOR_VERSION 8
+ENV JAVA_MINOR_VERSION 65
+ENV JAVA_BUILD b17
+
+RUN wget --no-check-certificate --no-cookies \
+    --header "Cookie: oraclelicense=accept-securebackup-cookie" \
+    "https://download.oracle.com/otn-pub/java/jdk/${JAVA_MAJOR_VERSION}u${JAVA_MINOR_VERSION}-${JAVA_BUILD}/jdk-${JAVA_MAJOR_VERSION}u${JAVA_MINOR_VERSION}-linux-x64.tar.gz" && \
+    tar zxvf jdk-${JAVA_MAJOR_VERSION}u${JAVA_MINOR_VERSION}-linux-x64.tar.gz && \
+    rm -f jdk-${JAVA_MAJOR_VERSION}u${JAVA_MINOR_VERSION}-linux-x64.tar.gz
+
+ENV JAVA_HOME /jdk1.${JAVA_MAJOR_VERSION}.0_${JAVA_MINOR_VERSION}
+ENV PATH $JAVA_HOME/bin:$PATH
+
 MAINTAINER “Dan Walsh” <dwalsh@redhat.com>
 ENV container docker
 RUN yum -y update && \
