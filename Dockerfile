@@ -18,7 +18,7 @@ RUN wget --no-check-certificate --no-cookies \
 ENV JAVA_HOME /jdk1.${JAVA_MAJOR_VERSION}.0_${JAVA_MINOR_VERSION}
 ENV PATH $JAVA_HOME/bin:$PATH
 
-MAINTAINER “Dan Walsh” <dwalsh@redhat.com>
+MAINTAINER "Dan Walsh" <dwalsh@redhat.com>
 ENV container docker
 RUN yum -y update && \
     yum -y install systemd && \
